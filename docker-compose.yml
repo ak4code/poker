@@ -1,9 +1,9 @@
 services:
   app:
+    image: poker-app:${APP_VERSION:-latest}
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: poker-app
     ports:
       - "3007:3007"
     environment:
