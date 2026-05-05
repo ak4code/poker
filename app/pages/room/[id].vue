@@ -49,8 +49,6 @@ const inviteUrl = computed(() => {
   return `${location.origin}/room/${roomId.value}`
 })
 
-const deckDisabled = computed(() => store.room?.status === 'revealed')
-const votingDisabled = computed(() => deckDisabled.value || store.me?.canVote === false)
 const showDeck = computed(() => store.me?.canVote !== false)
 </script>
 
@@ -128,7 +126,7 @@ const showDeck = computed(() => store.me?.canVote !== false)
     </div>
 
     <div v-else-if="store.room" class="space-y-4 sm:space-y-5">
-      <CardDeck v-if="showDeck" :disabled="votingDisabled" @pick="handlePick" />
+      <CardDeck v-if="showDeck" @pick="handlePick" />
 
       <div
         v-if="store.isHost"

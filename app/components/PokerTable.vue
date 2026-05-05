@@ -5,7 +5,21 @@ import { useRoomStore } from '~/stores/room'
 const store = useRoomStore()
 const isRevealed = computed(() => store.room?.status === 'revealed')
 const onlineCount = computed(() => store.orderedUsers.filter((u) => u.online).length)
-const voters = computed(() => store.orderedUsers.filter((u) => u.canVote))
+const voters = computed(() => {
+  const list = store.orderedUsers.filter((u) => u.canVote)
+  if (!isRevealed.value) return list
+  const order = store.room?.deck ?? []
+  const rank = (vote: string | null) => {
+    if (vote == null) return 9999
+    const idx = order.indexOf(vote)
+    return idx === -1 ? 9999 : idx
+  }
+  return list.slice().sort((a, b) => {
+    const diff = rank(a.vote) - rank(b.vote)
+    if (diff !== 0) return diff
+    return a.name.localeCompare(b.name)
+  })
+})
 const onlineVotersCount = computed(() => voters.value.filter((u) => u.online).length)
 const waitingForVoters = computed(() => !isRevealed.value && onlineVotersCount.value === 0)
 

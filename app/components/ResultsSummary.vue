@@ -4,13 +4,19 @@ import { useRoomStore } from '~/stores/room'
 
 const store = useRoomStore()
 const summary = computed(() => store.room?.summary)
+const deck = computed(() => store.room?.deck ?? [])
 
 const sortedDistribution = computed(() => {
   if (!summary.value) return [] as { value: string; count: number }[]
+  const order = deck.value
   return Object.entries(summary.value.distribution)
     .map(([value, count]) => ({ value, count }))
-    .sort((a, b) => b.count - a.count)
+    .sort((a, b) => order.indexOf(a.value) - order.indexOf(b.value))
 })
+
+const maxDistributionCount = computed(() =>
+  sortedDistribution.value.reduce((max, row) => Math.max(max, row.count), 0),
+)
 
 const headline = computed(() => {
   const s = summary.value
@@ -131,7 +137,7 @@ function joinNames(names: string[]): string {
               <div
                 class="h-full rounded-full transition-all duration-700"
                 :style="{
-                  width: `${(row.count / Math.max(1, sortedDistribution[0].count)) * 100}%`,
+                  width: `${(row.count / Math.max(1, maxDistributionCount)) * 100}%`,
                   background: 'linear-gradient(90deg, var(--color-accent-blue), var(--color-accent-purple))',
                 }"
               />

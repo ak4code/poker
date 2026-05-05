@@ -133,7 +133,6 @@ export function joinRoom(
 export function setVote(roomId: string, userId: string, value: CardValue | null): Room | null {
   const room = rooms.get(roomId)
   if (!room) return null
-  if (room.status !== 'voting') return room
   const user = room.users.get(userId)
   if (!user) return room
   if (!canUserVote(room, userId)) {
