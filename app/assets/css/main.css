@@ -1,6 +1,28 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
+  --color-bg: #f1f5f9;
+  --color-bg-soft: #e2e8f0;
+  --color-surface: rgba(255, 255, 255, 0.65);
+  --color-surface-strong: rgba(255, 255, 255, 0.88);
+  --color-border: rgba(15, 23, 42, 0.08);
+  --color-border-strong: rgba(15, 23, 42, 0.16);
+  --color-fg: #0f172a;
+  --color-fg-muted: #475569;
+  --color-fg-dim: #64748b;
+  --color-accent-blue: #3b82f6;
+  --color-accent-purple: #8b5cf6;
+  --color-success: #10b981;
+  --color-warn: #f59e0b;
+  --color-danger: #ef4444;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html.dark {
   --color-bg: #0f172a;
   --color-bg-soft: #1e293b;
   --color-surface: rgba(30, 41, 59, 0.4);
@@ -14,10 +36,6 @@
   --color-accent-purple: #a78bfa;
   --color-success: #34d399;
   --color-warn: #fbbf24;
-  --color-danger: #ef4444;
-
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 html, body, #__nuxt {
@@ -40,9 +58,13 @@ body::after {
   height: 36rem;
   border-radius: 9999px;
   filter: blur(128px);
-  opacity: 0.30;
+  opacity: 0.18;
   pointer-events: none;
   z-index: 0;
+}
+html.dark body::before,
+html.dark body::after {
+  opacity: 0.30;
 }
 body::before {
   background: #3b82f6;
@@ -99,9 +121,17 @@ body::after {
 }
 
 .card-glow {
+  box-shadow: 0 4px 14px 0 rgba(15, 23, 42, 0.08);
+}
+html.dark .card-glow {
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 .card-glow-active {
+  box-shadow:
+    0 0 12px rgba(59, 130, 246, 0.32),
+    inset 0 0 12px rgba(139, 92, 246, 0.18);
+}
+html.dark .card-glow-active {
   box-shadow:
     0 0 20px rgba(96, 165, 250, 0.55),
     inset 0 0 20px rgba(167, 139, 250, 0.30);
@@ -142,6 +172,12 @@ body::after {
 
 .interactive-surface:hover {
   transform: translateY(-2px);
+  border-color: rgba(15, 23, 42, 0.20);
+  box-shadow:
+    0 6px 16px rgba(15, 23, 42, 0.07),
+    0 0 14px rgba(59, 130, 246, 0.08);
+}
+html.dark .interactive-surface:hover {
   border-color: rgba(148, 163, 184, 0.28);
   box-shadow:
     0 14px 40px rgba(0, 0, 0, 0.30),

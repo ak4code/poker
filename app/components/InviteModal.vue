@@ -5,6 +5,8 @@ import { Check, Copy, X } from 'lucide-vue-next'
 const props = defineProps<{ url: string }>()
 const emit = defineEmits<{ close: [] }>()
 
+const { theme } = useTheme()
+
 const svgMarkup = ref('')
 const copied = ref(false)
 const generating = ref(true)
@@ -16,8 +18,8 @@ function onKey(e: KeyboardEvent) {
 }
 
 watch(
-  () => props.url,
-  async (url) => {
+  [() => props.url, theme],
+  async ([url, t]) => {
     if (!url) return
     generating.value = true
     try {
@@ -25,7 +27,7 @@ watch(
         type: 'svg',
         margin: 1,
         errorCorrectionLevel: 'M',
-        color: { dark: '#e2e8f0', light: '#0000' },
+        color: { dark: t === 'dark' ? '#e2e8f0' : '#0f172a', light: '#0000' },
       })
     } finally {
       generating.value = false
@@ -100,7 +102,7 @@ onBeforeUnmount(() => {
 <template>
   <div
     class="motion-enter fixed inset-0 z-50 flex items-center justify-center p-4"
-    style="background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px);"
+    style="background: rgba(15, 23, 42, 0.55); backdrop-filter: blur(20px);"
     @click="onBackdrop"
   >
     <div
@@ -109,7 +111,7 @@ onBeforeUnmount(() => {
     >
       <button
         class="action-button focus-ring absolute top-3 right-3 grid h-8 w-8 place-items-center rounded-full text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]"
-        style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--color-border-strong);"
+        style="background: var(--color-surface-strong); border: 1px solid var(--color-border-strong);"
         aria-label="Закрыть"
         @click="emit('close')"
       >
@@ -129,9 +131,9 @@ onBeforeUnmount(() => {
         <div
           class="relative flex h-full w-full items-center justify-center rounded-2xl p-4"
           style="
-            background: rgba(15, 23, 42, 0.85);
+            background: var(--color-surface-strong);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(148, 163, 184, 0.25);
+            border: 1px solid var(--color-border-strong);
           "
         >
           <div
@@ -154,7 +156,7 @@ onBeforeUnmount(() => {
 
       <div
         class="mb-3 flex items-center gap-2 rounded-lg px-3 py-2 font-mono text-xs"
-        style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--color-border-strong); color: var(--color-fg-muted);"
+        style="background: var(--color-surface); border: 1px solid var(--color-border-strong); color: var(--color-fg-muted);"
       >
         <span class="truncate">{{ url }}</span>
       </div>

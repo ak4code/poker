@@ -22,7 +22,7 @@ function submit() {
 <template>
   <div
     class="motion-enter fixed inset-0 z-50 flex items-center justify-center px-4"
-    style="background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px);"
+    style="background: rgba(15, 23, 42, 0.55); backdrop-filter: blur(20px);"
   >
     <div
       class="glass-strong motion-enter w-full max-w-md rounded-2xl p-6"
@@ -40,8 +40,8 @@ function submit() {
           placeholder="Имя участника"
           class="focus-ring w-full rounded-lg px-4 py-3 font-mono text-base text-[var(--color-fg)] placeholder-[var(--color-fg-dim)] outline-none transition duration-200 focus:-translate-y-0.5"
           style="
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            background: var(--color-surface-strong);
+            border: 1px solid var(--color-border-strong);
           "
         />
         <p v-if="error" class="mt-2 font-mono text-xs text-[var(--color-danger)]">{{ error }}</p>
@@ -51,10 +51,10 @@ function submit() {
           :style="{
             background: name.trim()
               ? 'linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%)'
-              : 'rgba(30, 41, 59, 0.6)',
-            color: name.trim() ? '#ffffff' : '#64748b',
+              : 'var(--color-surface)',
+            color: name.trim() ? '#ffffff' : 'var(--color-fg-dim)',
             boxShadow: name.trim() ? '0 0 20px rgba(96, 165, 250, 0.4)' : 'none',
-            border: '1px solid rgba(148, 163, 184, 0.2)',
+            border: '1px solid var(--color-border-strong)',
             cursor: name.trim() ? 'pointer' : 'not-allowed',
           }"
         >

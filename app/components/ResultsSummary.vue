@@ -41,7 +41,7 @@ function joinNames(names: string[]): string {
     <div
       v-if="summary.count === 0"
       class="rounded-xl p-4 text-center font-mono text-sm text-[var(--color-fg-muted)]"
-      style="background: rgba(15, 23, 42, 0.4); border: 1px solid var(--color-border);"
+      style="background: var(--color-surface); border: 1px solid var(--color-border);"
     >
       Численных оценок нет.
     </div>
@@ -133,7 +133,10 @@ function joinNames(names: string[]): string {
             :style="{ animationDelay: `${index * 70}ms` }"
           >
             <div class="w-8 text-right font-mono text-sm text-[var(--color-fg-muted)]">{{ row.value }}</div>
-            <div class="h-2 flex-1 overflow-hidden rounded-full bg-[rgba(15,23,42,0.6)]">
+            <div
+              class="h-2 flex-1 overflow-hidden rounded-full"
+              style="background: var(--color-surface);"
+            >
               <div
                 class="h-full rounded-full transition-all duration-700"
                 :style="{
