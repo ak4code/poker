@@ -3,7 +3,6 @@ import {
   ensureGcStarted,
   getRoom,
   joinRoom,
-  maybeTransferHost,
   registerPeer,
   resetVotes,
   revealVotes,
@@ -169,9 +168,8 @@ export default defineWebSocketHandler({
   },
 
   close(peer) {
-    const { room, userOffline } = unregisterPeer(peer.id)
+    const { room } = unregisterPeer(peer.id)
     if (!room) return
-    if (userOffline) maybeTransferHost(room)
     const payload = JSON.stringify({ type: 'room_state_update', room: serializeRoom(room) })
     publish(peer, `room:${room.roomId}`, payload)
   },

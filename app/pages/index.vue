@@ -4,7 +4,14 @@ import { Spade } from 'lucide-vue-next'
 const name = useStoredName()
 const submitting = ref(false)
 const error = ref('')
-const hostCanVote = ref(true)
+const hostCanVote = ref(false)
+
+onMounted(() => {
+  const target = getActiveHostRoom() ?? getLastRoom()
+  if (target && getRoomCredentials(target)) {
+    navigateTo(`/room/${target}`)
+  }
+})
 
 async function createRoom() {
   const trimmed = name.value.trim()
@@ -20,6 +27,7 @@ async function createRoom() {
       body: { name: trimmed, hostCanVote: hostCanVote.value },
     })
     saveRoomCredentials(res.roomId, { userId: res.userId, userToken: res.userToken })
+    setActiveHostRoom(res.roomId)
     await navigateTo(`/room/${res.roomId}`)
   } catch (e: any) {
     error.value = e?.statusMessage || 'Не удалось создать комнату'
