@@ -1,4 +1,6 @@
 const NAME_KEY = 'sp:userName'
+const HOST_ROOM_KEY = 'sp:hostRoom'
+const LAST_ROOM_KEY = 'sp:lastRoom'
 
 export interface RoomCredentials {
   userId: string
@@ -37,17 +39,54 @@ function parseCredentials(raw: string): RoomCredentials | null {
 export function getRoomCredentials(roomId: string): RoomCredentials | null {
   if (import.meta.server) return null
 
-  const raw = sessionStorage.getItem(credentialsKey(roomId))
+  const raw = localStorage.getItem(credentialsKey(roomId))
   if (!raw) return null
 
   const credentials = parseCredentials(raw)
   if (credentials) return credentials
 
-  sessionStorage.removeItem(credentialsKey(roomId))
+  localStorage.removeItem(credentialsKey(roomId))
   return null
 }
 
 export function saveRoomCredentials(roomId: string, credentials: RoomCredentials) {
   if (import.meta.server) return
-  sessionStorage.setItem(credentialsKey(roomId), JSON.stringify(credentials))
+  localStorage.setItem(credentialsKey(roomId), JSON.stringify(credentials))
+}
+
+export function clearRoomCredentials(roomId: string) {
+  if (import.meta.server) return
+  localStorage.removeItem(credentialsKey(roomId))
+}
+
+export function getActiveHostRoom(): string | null {
+  if (import.meta.server) return null
+  return localStorage.getItem(HOST_ROOM_KEY)
+}
+
+export function setActiveHostRoom(roomId: string) {
+  if (import.meta.server) return
+  localStorage.setItem(HOST_ROOM_KEY, roomId)
+}
+
+export function clearActiveHostRoom(roomId?: string) {
+  if (import.meta.server) return
+  if (roomId && localStorage.getItem(HOST_ROOM_KEY) !== roomId) return
+  localStorage.removeItem(HOST_ROOM_KEY)
+}
+
+export function getLastRoom(): string | null {
+  if (import.meta.server) return null
+  return localStorage.getItem(LAST_ROOM_KEY)
+}
+
+export function setLastRoom(roomId: string) {
+  if (import.meta.server) return
+  localStorage.setItem(LAST_ROOM_KEY, roomId)
+}
+
+export function clearLastRoom(roomId?: string) {
+  if (import.meta.server) return
+  if (roomId && localStorage.getItem(LAST_ROOM_KEY) !== roomId) return
+  localStorage.removeItem(LAST_ROOM_KEY)
 }

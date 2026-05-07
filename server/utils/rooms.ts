@@ -199,19 +199,6 @@ export function unregisterPeer(peerId: string): { room: Room | null; userId: str
   return { room, userId: ref.userId, userOffline: !stillOnline }
 }
 
-export function maybeTransferHost(room: Room): boolean {
-  const host = room.users.get(room.hostId)
-  if (host?.online) return false
-  const nextOnline = [...room.users.values()].find((u) => u.online)
-  if (!nextOnline) return false
-  room.hostId = nextOnline.id
-  if (!room.hostCanVote) {
-    nextOnline.vote = null
-    nextOnline.hasVoted = false
-  }
-  return true
-}
-
 function buildRoomSummary(room: Room): RoomSummary {
   const distribution: Record<string, number> = {}
   const numericVotes: Array<{ name: string; value: string; num: number }> = []

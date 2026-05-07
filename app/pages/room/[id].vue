@@ -41,8 +41,22 @@ function handlePick(value: string | null) {
 
 async function leaveRoom() {
   socketCtl.stop()
+  clearRoomCredentials(roomId.value)
+  clearActiveHostRoom(roomId.value)
+  clearLastRoom(roomId.value)
   await navigateTo('/')
 }
+
+watch(
+  () => store.error,
+  (err) => {
+    if (err === 'room_not_found') {
+      clearRoomCredentials(roomId.value)
+      clearActiveHostRoom(roomId.value)
+      clearLastRoom(roomId.value)
+    }
+  },
+)
 
 const inviteUrl = computed(() => {
   if (typeof window === 'undefined') return ''

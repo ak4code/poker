@@ -1,5 +1,5 @@
 import { useRoomStore } from '~/stores/room'
-import { saveRoomCredentials, type RoomCredentials } from './useRoomIdentity'
+import { saveRoomCredentials, setLastRoom, type RoomCredentials } from './useRoomIdentity'
 
 type ServerMsg =
   | { type: 'connected' }
@@ -69,6 +69,7 @@ export function useRoomSocket() {
           }
           store.setMyUserId(msg.userId)
           saveRoomCredentials(msg.roomId, { userId: msg.userId, userToken: msg.userToken })
+          setLastRoom(msg.roomId)
           store.setJoining(false)
           break
         case 'room_state_update':
