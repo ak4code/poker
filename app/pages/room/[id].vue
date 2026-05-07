@@ -77,7 +77,7 @@ const showDeck = computed(() => store.me?.canVote !== false)
       >
         <div
           class="grid h-9 w-9 place-items-center rounded-lg border border-[var(--color-border-strong)]"
-          style="background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(12px);"
+          style="background: var(--color-surface-strong); backdrop-filter: blur(12px);"
         >
           <Spade :size="16" class="text-[var(--color-accent-blue)]" />
         </div>
@@ -98,12 +98,13 @@ const showDeck = computed(() => store.me?.canVote !== false)
         </span>
         <button
           class="action-button focus-ring inline-flex items-center gap-2 rounded-lg px-3 py-2 font-mono text-xs hover:brightness-125"
-          style="background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(148, 163, 184, 0.2); color: #e2e8f0;"
+          style="background: var(--color-surface-strong); backdrop-filter: blur(12px); border: 1px solid var(--color-border-strong); color: var(--color-fg);"
           @click="showInviteModal = true"
         >
           <Share2 :size="14" />
           <span class="hidden sm:inline">Пригласить</span>
         </button>
+        <ThemeToggle />
       </div>
     </header>
 
@@ -146,7 +147,7 @@ const showDeck = computed(() => store.me?.canVote !== false)
         <button
           type="button"
           class="action-button focus-ring inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 font-mono text-sm hover:brightness-125"
-          style="background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(148, 163, 184, 0.2); color: #e2e8f0;"
+          style="background: var(--color-surface-strong); border: 1px solid var(--color-border-strong); color: var(--color-fg);"
           @click="leaveRoom"
         >
           <LogOut :size="16" />

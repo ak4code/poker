@@ -33,11 +33,14 @@ const previewCards = ['1', '2', '3', '5', '8', '13', '21', '?', '☕']
 
 <template>
   <main class="relative z-10 mx-auto flex min-h-screen max-w-4xl flex-col items-center px-4 py-10 sm:py-16">
-    <header class="motion-enter mb-10 text-center sm:mb-14">
+    <header class="motion-enter relative mb-10 text-center sm:mb-14">
+      <div class="absolute right-0 top-0">
+        <ThemeToggle />
+      </div>
       <div class="mb-4 flex items-center justify-center gap-3">
         <div
           class="interactive-surface grid h-12 w-12 place-items-center rounded-xl border border-[var(--color-border-strong)]"
-          style="background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(12px);"
+          style="background: var(--color-surface-strong); backdrop-filter: blur(12px);"
         >
           <Spade :size="22" class="text-[var(--color-accent-blue)] neon-text" />
         </div>
@@ -67,13 +70,13 @@ const previewCards = ['1', '2', '3', '5', '8', '13', '21', '?', '☕']
             placeholder="например, Алекс"
             maxlength="40"
             class="focus-ring w-full rounded-lg px-4 py-3 font-mono text-base text-[var(--color-fg)] placeholder-[var(--color-fg-dim)] outline-none transition duration-200 focus:-translate-y-0.5"
-            style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(148, 163, 184, 0.2);"
+            style="background: var(--color-surface-strong); border: 1px solid var(--color-border-strong);"
           />
         </label>
 
         <label
           class="flex cursor-pointer items-center justify-between gap-3 rounded-lg px-3 py-3 transition duration-200 hover:brightness-125"
-          style="background: rgba(15, 23, 42, 0.45); border: 1px solid rgba(148, 163, 184, 0.16);"
+          style="background: var(--color-surface); border: 1px solid var(--color-border-strong);"
         >
           <span class="font-mono text-xs text-[var(--color-fg-muted)]">
             Ведущий голосует

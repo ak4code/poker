@@ -23,7 +23,7 @@ function pick(v: string) {
         <button
           type="button"
           class="action-button focus-ring inline-flex shrink-0 items-center justify-center gap-2 rounded-lg px-3 py-2 font-mono text-xs hover:brightness-125"
-          style="background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(148, 163, 184, 0.2); color: #e2e8f0;"
+          style="background: var(--color-surface-strong); border: 1px solid var(--color-border-strong); color: var(--color-fg);"
           @click="deckVisible = !deckVisible"
         >
           <EyeOff v-if="deckVisible" :size="14" />

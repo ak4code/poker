@@ -51,7 +51,7 @@ function hasSelectedCard(user: { hasVoted: boolean; vote: string | null }) {
       <div
         v-if="waitingForVoters"
         class="glass motion-enter flex min-h-48 flex-col items-center justify-center rounded-xl p-6 text-center"
-        style="background: rgba(15, 23, 42, 0.42); border: 1px solid rgba(148, 163, 184, 0.16);"
+        style="background: var(--color-surface); border: 1px solid var(--color-border-strong);"
       >
         <div class="relative mb-4 grid h-14 w-14 place-items-center rounded-full border border-[var(--color-border-strong)]">
           <LoaderCircle :size="28" class="animate-spin text-[var(--color-accent-blue)]" />
